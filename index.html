@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>นับวันเลิกกับแฟนเก่า</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     กรอกวันเวลาที่เลิกกันตรงนี้ (หลังบ้าน) แล้วเซฟไฟล์ใหม่
+     รูปแบบ: 'YYYY-MM-DDTHH:MM:SS'
+     ตัวอย่าง: '2026-06-15T20:30:00'
+     ============================================================ */
+  :root{
+    --bg: #0A090D;
+    --surface: #17151C;
+    --crimson: #E0304A;
+    --crimson-dim: #6B1A28;
+    --crimson-glow: #E0304A55;
+    --text: #F2EEE7;
+    --text-dim: #7A7583;
+    --border: #262330;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html,body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans Thai', sans-serif;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 20px;
+  }
+  .wrap{
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .eyebrow{
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 400;
+    text-align:center;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  .hero{
+    position: relative;
+    text-align: center;
+    padding: 20px 0 12px;
+  }
+  .heart-svg{
+    width: 300px;
+    max-width: 90%;
+    height: auto;
+    display:block;
+    margin: 0 auto;
+  }
+  .heart-left, .heart-right{
+    animation: crackApart 1.4s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .heart-left{ transform-origin: 90px 90px; }
+  .heart-right{ transform-origin: 110px 90px; }
+  @keyframes crackApart{
+    0%{ transform: translate(0,0) rotate(0deg); }
+    100%{ transform: var(--end-transform); }
+  }
+  .heart-left{ --end-transform: translate(-5px, 2px) rotate(-2.5deg); }
+  .heart-right{ --end-transform: translate(5px, 2px) rotate(2.5deg); }
+
+  .num-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-46%);
+    text-align:center;
+    pointer-events: none;
+  }
+  .num{
+    font-family: 'Noto Serif Thai', serif;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--text);
+    text-shadow: 0 0 24px var(--crimson-glow);
+  }
+  .unit{
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .message{
+    text-align:center;
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--text);
+    padding: 8px 8px 30px;
+  }
+  .message .accent{ color: var(--crimson); }
+
+  .divider{
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 24px;
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+  }
+  .stat{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--crimson-dim);
+    border-radius: 4px;
+    padding: 14px 10px;
+    text-align:center;
+  }
+  .stat-num{
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 22px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .stat-label{
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  .footer-note{
+    text-align:center;
+    margin-top: 26px;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="eyebrow">นับตั้งแต่วันที่พังไปพร้อมกัน</div>
+
+  <div class="hero">
+    <svg class="heart-svg" viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg">
+      <g class="heart-left">
+        <path d="M100 175 C 40 130, 8 95, 8 58 C 8 30, 28 12, 52 12 C 70 12, 85 22, 96 40 L 92 70 L 78 55 L 84 90 L 68 78 L 100 175 Z"
+          fill="var(--crimson)" opacity="0.92"/>
+      </g>
+      <g class="heart-right">
+        <path d="M100 175 C 160 130, 192 95, 192 58 C 192 30, 172 12, 148 12 C 130 12, 115 22, 104 40 L 108 70 L 122 55 L 116 90 L 132 78 L 100 175 Z"
+          fill="var(--crimson)" opacity="0.92"/>
+      </g>
+    </svg>
+    <div class="num-overlay">
+      <div class="num" id="dayCount">0</div>
+      <div class="unit">วัน</div>
+    </div>
+  </div>
+
+  <div class="message" id="message"></div>
+
+  <div class="divider"></div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="weekCount">0</div>
+      <div class="stat-label">สัปดาห์</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="monthCount">0</div>
+      <div class="stat-label">เดือน</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="hourCount">0</div>
+      <div class="stat-label">ชั่วโมง</div>
+    </div>
+  </div>
+
+  <div class="footer-note">อัปเดตทุกนาที เผื่อใครอยากเสือกดูว่าเวลาผ่านไปแค่ไหนแล้ว</div>
+
+</div>
+
+<script>
+// ▼▼▼ แก้วันเวลาที่เลิกกันตรงนี้ ▼▼▼
+const BREAKUP_DATE = '2026-08-23T20:30:00';
+// ▲▲▲ ────────────────────────── ▲▲▲
+
+const messages = [
+  { min: 0, max: 0, text: 'วันนี้แหละวันแรก อย่ามาแชทหามันตอนตี 2 ตอนนี้เลย <span class="accent">รู้ตัวไว้เลยนะ</span>' },
+  { min: 1, max: 2, text: 'สองวันแล้ว ยังคิดถึงอยู่ใช่ไหม ก็เข้าใจ แต่ห้ามพิมพ์ไปหานะเว้ย' },
+  { min: 3, max: 6, text: 'สามวันผ่านไป มือยังคันอยากไถ IG เขาอยู่รึเปล่า <span class="accent">วางมือถือลงเดี๋ยวนี้</span>' },
+  { min: 7, max: 13, text: 'ครบอาทิตย์แล้ว แล้วยังมานั่งเปิดแชทเก่าอ่านซ้ำอยู่ทำไม พอเถอะ' },
+  { min: 14, max: 29, text: 'สองอาทิตย์แล้วนะเว้ย จะร้องไห้ให้คนที่ไม่เห็นค่าคุณอีกกี่รอบ' },
+  { min: 30, max: 59, text: 'เดือนนึงแล้ว ยังจำวันเกิดเขาได้แม่นกว่าเลขบัญชีตัวเองอีก <span class="accent">อายบ้างไหม</span>' },
+  { min: 60, max: 89, text: 'สองเดือนแล้ว เพื่อนขอพูดตรง ๆ นะ เขาก็ใช้ชีวิตของเขาไปแล้ว คุณจะหยุดอยู่ตรงนี้ถึงเมื่อไหร่' },
+  { min: 90, max: 179, text: 'สามเดือน ยังเซฟรูปคู่ไว้ในโฟลเดอร์ลับอยู่ใช่ไหม <span class="accent">ลบทิ้งซะ</span>' },
+  { min: 180, max: 269, text: 'ครึ่งปีแล้วนะ คนอื่นเขาเดตใหม่ไปหลายรอบแล้ว คุณยังนั่งเช็คว่าเขาไถ story ไหม' },
+  { min: 270, max: 364, text: 'ใกล้ครบปีละ ยังจะบอกเพื่อนว่า "เดี๋ยวก็หาย" อยู่อีกกี่เดือน' },
+  { min: 365, max: 729, text: 'หนึ่งปีเต็มแล้วเว้ย <span class="accent">พอกันทีได้ไหม</span> ชีวิตมันมีเรื่องให้ทำเยอะกว่านี้' },
+  { min: 730, max: Infinity, text: 'หลายปีผ่านไปละ ยังจะยกเขามาเป็นข้ออ้างที่ไม่กล้าเริ่มอะไรใหม่อีกเหรอ' }
+];
+
+function getMessage(days){
+  for(const m of messages){
+    if(days >= m.min && days <= m.max) return m.text;
+  }
+  return messages[messages.length-1].text;
+}
+
+function render(){
+  const start = new Date(BREAKUP_DATE);
+  const now = new Date();
+  const diffMs = now - start;
+  const days = Math.max(Math.floor(diffMs / 86400000), 0);
+  const hours = Math.max(Math.floor(diffMs / 3600000), 0);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+
+  document.getElementById('dayCount').textContent = days.toLocaleString('th-TH');
+  document.getElementById('weekCount').textContent = weeks.toLocaleString('th-TH');
+  document.getElementById('monthCount').textContent = months.toLocaleString('th-TH');
+  document.getElementById('hourCount').textContent = hours.toLocaleString('th-TH');
+  document.getElementById('message').innerHTML = getMessage(days);
+}
+
+render();
+setInterval(render, 60000);
+</script>
+
+</body>
+</html>
